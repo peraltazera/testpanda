@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket Thing1</title>
+</head>
+<body>
+    Client1
+    <button onclick="sendMessage()">Send Msg</button>
+</body>
+<script>
+    // Create WebSocket connection.
+    //const socket = new WebSocket('wss://live.pandascore.co/matches/576491/events?token=pt6suich8XsaJe3-7GYA84mFn-f1oLlkL8vM5bGX4-PxDWpcQ2I');
+    const socket = new WebSocket('wss://live.pandascore.co/matches/576491?token=pt6suich8XsaJe3-7GYA84mFn-f1oLlkL8vM5bGX4-PxDWpcQ2I');
+
+    // Connection closed
+    socket.addEventListener('close', function (event) {
+        console.log(event)
+        console.log("WS Server disconnect: " + event.reason)
+    });
+
+    // Connection opened
+    socket.addEventListener('open', function (event) {
+        console.log('Connected to WS Server')
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        console.log('Message from server ', event.data);
+    });
+
+    const sendMessage = () => {
+        console.log(socket.readyState)
+        socket.send('Hello From Client1!');
+    }
+</script>
+</html>
